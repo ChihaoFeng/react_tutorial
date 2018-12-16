@@ -2,7 +2,7 @@ import React from 'react';
 import Aux from "../../../hoc/Aux";
 import Button from "../../UI/Button/Button";
 
-const orderSummary = (props) => {
+const OrderSummary = (props) => {
   const ingredientSummary = Object.keys(props.ingredients).map(igkey => <li key={igkey}><span
     style={{textTransform: 'capitalize'}}>{igkey}</span>: {props.ingredients[igkey]}</li>);
   return (
@@ -18,7 +18,6 @@ const orderSummary = (props) => {
       <Button clicked={props.purchaseContinued} btnType='Success'>CONTINUE</Button>
     </Aux>
   )
-
 };
 
-export default orderSummary;
+export default OrderSummary;
