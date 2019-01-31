@@ -18,7 +18,7 @@ const purchase_burger_fail = (error) => {
 
 const purchase_burger_start = () => {
   return {
-    type: actionTypes.PURCHASE_BURGER_START,
+    type: actionTypes.PURCHASE_BURGER_START
   };
 };
 
@@ -38,5 +38,45 @@ export const purchase_burger = (orderData) => {
 export const purchase_init = () => {
   return {
     type: actionTypes.PURCHASE_INIT
+  };
+};
+
+const fetch_orders_start = () => {
+  return {
+    type: actionTypes.FETCH_ORDERS_START
+  };
+};
+
+const fetch_orders_success = (orders) => {
+  return {
+    type: actionTypes.FETCH_ORDERS_SUCCESS,
+    orders: orders
+  };
+};
+
+const fetch_orders_fail = (error) => {
+  return {
+    type: actionTypes.FETCH_ORDERS_FAIL,
+    error: error
+  };
+};
+
+export const fetch_orders = () => {
+  return dispatch => {
+    dispatch(fetch_orders_start());
+    axios.get('./orders.json')
+      .then(res => {
+        const fetchedOrders = [];
+        for (let key in res.data) {
+          fetchedOrders.push({
+            ...res.data[key],
+            id: key
+          });
+        }
+        console.log(fetchedOrders);
+        dispatch(fetch_orders_success(fetchedOrders))
+      }).catch( err => {
+        dispatch(fetch_orders_fail(err));
+    });
   };
 };
