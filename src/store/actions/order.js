@@ -61,10 +61,10 @@ const fetch_orders_fail = (error) => {
   };
 };
 
-export const fetch_orders = (token) => {
+export const fetch_orders = (token, userId) => {
   return dispatch => {
     dispatch(fetch_orders_start());
-    axios.get('./orders.json?auth=' + token)
+    axios.get('./orders.json?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"')
       .then(res => {
         const fetchedOrders = [];
         for (let key in res.data) {
